@@ -3,13 +3,14 @@
  */
 public class QuickSort {
     private int arr[];
-    private int comparisons;
+    private int comparisons, swaps;
     public QuickSort(int[] arr) {
         this.arr = arr;
     }
 
     public int[] mergeAll() {
         comparisons = 0;
+        swaps = 0;
         quickSort(0, arr.length - 1, 0);
         return arr;
     }
@@ -21,18 +22,25 @@ public class QuickSort {
         int buff;
         int max = pivot;
         for (int i = wall; i < max; i++) {
+            comparisons++;
             if (arr[i] <= arr[pivot]) { // swap arr[wall] <-> arr[i]
-                comparisons++;
-                buff = arr[wall];
-                arr[wall++] = arr[i];
-                arr[i] = buff;
+                if (wall != i) {
+                    buff = arr[wall];
+                    arr[wall] = arr[i];
+                    arr[i] = buff;
+                    swaps++;
+                }
+                wall++;
             }
         }
 
         // arr[wall] <-> arr[pivot]
-        buff = arr[wall];
-        arr[wall] = arr[pivot];
-        arr[pivot] = buff;
+        if (wall != pivot) {
+            buff = arr[wall];
+            arr[wall] = arr[pivot];
+            arr[pivot] = buff;
+            swaps++;
+        }
 
         if (wall == start) start++;
 
@@ -42,6 +50,10 @@ public class QuickSort {
 
     public int getComparisons() {
         return comparisons;
+    }
+
+    public int getSwaps() {
+        return swaps;
     }
 
     public void printArr(int[] arr) {

@@ -19,7 +19,7 @@ public class MainProgram {
     }
 
     private static void quickSort() {
-        Generator g = new Generator(10, Generator.RANDOM_ORDER);
+        Generator g = new Generator(2000, Generator.DESC_ORDER);
         int arr[] = g.generate();
 
         QuickSort ms = new QuickSort(arr);
@@ -27,10 +27,11 @@ public class MainProgram {
         arr = ms.mergeAll();
         ms.printArr(arr);
         System.out.println("Comparisons: " + ms.getComparisons());
+        System.out.println("Swaps: " + ms.getSwaps());
     }
 
-    private static void mergeSort() {
-        Generator g = new Generator(10, Generator.RANDOM_ORDER);
+    private static void mergeSort() { // Got Error
+        Generator g = new Generator(10, Generator.ASC_ORDER);
         int arr[] = g.generate();
 
         MergeSort ms = new MergeSort(arr);
@@ -38,6 +39,7 @@ public class MainProgram {
         arr = ms.mergeAll();
         ms.printArr(arr);
         System.out.println("Comparisons: " + ms.getComparisons());
+        System.out.println("Swaps: " + ms.getSwaps());
     }
 
     private static void generateDataSet() {

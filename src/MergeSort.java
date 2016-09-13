@@ -3,7 +3,7 @@
  */
 public class MergeSort {
     private int arr[];
-    private int comparisons;
+    private int comparisons, swaps;
 
     public MergeSort(int[] arr) {
         this.arr = arr;
@@ -11,6 +11,7 @@ public class MergeSort {
 
     public int[] mergeAll() {
         comparisons = 0;
+        swaps = 0;
         mergeSort(0, arr.length - 1);
         return arr;
     }
@@ -34,16 +35,20 @@ public class MergeSort {
 
         int buff[] = new int[m - n + 1];
         for (int i = 0; i < buff.length; i++) {
+            comparisons++;
             if (mid > m || arr[n] <= arr[mid]) { // Equal because equal elements can take either
-                comparisons++;
                 buff[i] = arr[n++];
+                swaps++;
             } else if (n >= midBuff || arr[n] > arr[mid]) {
-                comparisons++;
                 buff[i] = arr[mid++];
+                swaps++;
             }
         }
         // printArr(buff);
-        for (int i = 0; i < buff.length; i++) arr[i + nBuff] = buff[i];
+        for (int i = 0; i < buff.length; i++) {
+            arr[i + nBuff] = buff[i];
+            swaps++;
+        }
         // printArr(arr);
         //System.out.println();
 
@@ -51,6 +56,10 @@ public class MergeSort {
 
     public int getComparisons() {
         return comparisons;
+    }
+
+    public int getSwaps() {
+        return swaps;
     }
 
     public void printArr(int[] arr) {
